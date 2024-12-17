@@ -54,6 +54,12 @@ public class GamePanel extends JPanel implements Runnable {
 				delta--;
 			}
 		}
+		
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void update() {

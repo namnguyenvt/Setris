@@ -193,6 +193,9 @@ public class PlayManager {
 		if (lineCount > 0) {
 			int singleLineScore = 10 * level;
 			scores += singleLineScore + lineCount;
+			if (lineCount == 2) {
+				
+			}
 		}
 	}
 	

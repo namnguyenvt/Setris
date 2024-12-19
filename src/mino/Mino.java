@@ -144,6 +144,15 @@ public class Mino {
 		}
 	}
 	
+//	private boolean staticCollision(int x, int y) {
+//		for (Block staticBlock : PlayManager.staticBlocks) {
+//			if (staticBlock.x == x && staticBlock.y == y) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+	
 	public void update() {
 		
 		if (deactivating) {
@@ -151,32 +160,81 @@ public class Mino {
 		}
 		
 		
-		// Move the mino
-		if (KeyHandler.upPressed) {
-			switch (direction) {
-			case 1: getDirection2(); break;
-			case 2: getDirection3(); break;
-			case 3: getDirection4(); break;
-			case 4: getDirection1(); break;
+		// Move the mino if it's active and not independent
+		if (active && !deactivating) {
+			if (KeyHandler.upPressed) {
+				switch (direction) {
+				case 1: getDirection2(); break;
+				case 2: getDirection3(); break;
+				case 3: getDirection4(); break;
+				case 4: getDirection1(); break;
+				}
+				KeyHandler.upPressed = false;
 			}
-			KeyHandler.upPressed = false;
+			
+			checkMovementCollision();
 		}
 		
-		checkMovementCollision();
-		
-		if (KeyHandler.downPressed) {
+		// Handle down movement
+		if (KeyHandler.downPressed /*|| autoDropCounter == PlayManager.dropInterval*/) {
+			checkMovementCollision();
+			
+			// Check future position for collision
+//			for (int i = 0; i < b.length; i++) {
+//				if (b[i].y + Block.SIZE == PlayManager.bottom_y) {
+//					bottomCollision = true;
+//					break;
+//				}
+//			}
+			
 			// If the mino's bottom is not hitting, it can go down
 			if (bottomCollision == false) {
+				boolean canMoveDown = true;
+				
 				b[0].y += Block.SIZE;
 				b[1].y += Block.SIZE;
 				b[2].y += Block.SIZE;
 				b[3].y += Block.SIZE;
 				
+//				for (Block block : b) {
+//					if (block.independent) continue; // Skip independent blocks
+//					if (bottomCollision || staticCollision(block.x, block.y + Block.SIZE)) {
+//						canMoveDown = false; 
+//						break;
+//					}
+//				}
+				
 				// When moved down, reset the autoDropCounter
+//				if (canMoveDown) {
+//					for (Block block : b) {
+//						if (!block.independent) {
+//							block.y += Block.SIZE;
+//							checkStaticBlockCollision();
+//						}
+//					}
+//					autoDropCounter = 0;
+//				} else {
+//					// Start separating the blocks into independent sand
+//					for (Block block : b) {
+//						block.independent = true;
+//					}
+//					active = false; // The Mino stops being active
+//				}
 				autoDropCounter = 0;
+				
+				KeyHandler.downPressed = false;
 			}
-			KeyHandler.downPressed = false;
 		}
+		
+		// Handle independent falling blocks
+//		for (Block block : b) {
+//			if (block.independent) {
+//				if (!staticCollision(block.x, block.y + Block.SIZE) && block.y + Block.SIZE < PlayManager.bottom_y) {
+//					block.y += Block.SIZE;
+//				}
+//			}
+//		}
+		
 		if (KeyHandler.leftPressed) {
 			
 			if (leftCollision == false) {

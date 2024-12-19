@@ -13,7 +13,6 @@ Line clearing mechanism
 Write notes or comments to document these components.
 Prepare the Development Environment
 
-Set up your IDE (e.g., IntelliJ, Eclipse, or VS Code).
 Ensure your Tetris project compiles and runs successfully.
 Create a separate branch or copy of the project for Setris development.
 

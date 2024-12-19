@@ -9,6 +9,7 @@ public class Block extends Rectangle {
 	public int x, y;
 	public static final int SIZE = 30; // 30x30 block
 	public Color c;
+	public boolean independent = false;   // If true, the block will move independently
 	
 	public Block(Color c) {
 		this.c = c;

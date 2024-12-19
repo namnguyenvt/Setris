@@ -53,12 +53,13 @@ public class GamePanel extends JPanel implements Runnable {
 				repaint();
 				delta--;
 			}
-		}
-		
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			
+			// Optional: to reduce the CPU load
+			try {
+				Thread.sleep(10); // Adjust sleep for smoother or faster gameplay 
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
